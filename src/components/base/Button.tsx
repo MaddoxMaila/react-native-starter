@@ -1,6 +1,6 @@
 import { Theme } from "../../contexts/contextTypes";
 import React, {useContext} from "react";
-import { Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, TouchableOpacity, ActivityIndicator, View } from 'react-native'
 import { ThemeContext } from "../../contexts/Theme";
 import Center from './Center'
 import { buttonSyle } from "../uiStyles/ButtonStyles";
@@ -20,12 +20,14 @@ const AppButton : React.FC<ButtonProps> = ({title, press, loading, block}) => {
     return (
         <Center>
             <TouchableOpacity 
-            style={[block ? styles.btnBlock : styles.btnLg, styles.btn]}
+            style={[styles.btn, block ? styles.btnBlock : styles.btnLg]}
             onPress={press ? () => {
                 press()
             } : undefined}
             >
-                {loading ? (<ActivityIndicator size="large" color="#fff" />) : (<Text style={styles.text}>Hello World</Text>)}
+                {loading ? (<ActivityIndicator size="large" color="#fff" />) : 
+                    <Text style={styles.text}>{title}</Text>
+                }
             </TouchableOpacity>
         </Center>
     )

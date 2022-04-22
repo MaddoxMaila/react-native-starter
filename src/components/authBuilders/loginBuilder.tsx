@@ -56,7 +56,7 @@ const LoginBuilder : React.FC<LoginBuilderProps> = () => {
                                 }} 
                                 title="Login"
                                 loading={false}
-                                block={false} 
+                                block={true} 
                              />
                             }
 

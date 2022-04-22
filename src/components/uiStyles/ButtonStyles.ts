@@ -7,26 +7,22 @@ export const buttonSyle = (theme: Theme) => {
         btn : {
             color : '#fff',
             backgroundColor : theme.colors.primaryColor, //'#007bff'
-            display : "flex",
-            textAlign : 'center',
-            textAlignVertical: 'center',
+            alignItems: 'center',
+            padding: 10,
+            height: 38
         },
         btnLg : {
-            paddingHorizontal: wp("3.5%"),
-            paddingVertical: hp("1.5%"),
-            fontSize : wp("2%"),
-            borderRadius : 10,
+            padding: 10,
+            borderRadius : 50,
         },
         btnBlock : {
-            width : wp("100%"),
-            paddingHorizontal: wp("3.5%"),
-            paddingVertical: hp("1.5%"),
+            width : wp("88%"),
             fontSize : wp("2%"),
-            borderRadius : 10,
+            borderRadius : 50,
         },
         text : {
-            color : 'red',
-            fontSize : wp("3.5%"),
+            color : '#fff',
+            fontSize : wp("4%"),
             fontWeight : 'bold',
         }
     
