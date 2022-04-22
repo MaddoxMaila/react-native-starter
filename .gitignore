@@ -1,0 +1,4 @@
+node_modules
+.expo
+__tests__
+./.expo
