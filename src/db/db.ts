@@ -9,7 +9,7 @@ export class Database{
     
     static db: Database
     
-    static getInstance(): Database{
+    static  getInstance(): Database{
         if(!this.db){
             this.db = new Database()
             this.db.connect()
@@ -22,62 +22,69 @@ export class Database{
         this.insertStatement = ""
     }
     
-    async connect(){Database.getInstance().sqlite = await openDatabase({name: 'brackr.db', location: 'default'});}
+    async connect(){
+        this.sqlite = await openDatabase({name: 'brackr.db', location: 'default'});
+    }
 
-    async getdb(){return await Database.getInstance().sqlite}
+    async getdb(){
+        return this.sqlite
+    }
 
-    async createTable(tableName: String, columns: Array<String>): Promise<ResultSet[]>{
+    async createTable(tableName: String, columns: Array<String>){
         const self = Database.getInstance()
         const query = `CREATE TABLE IF NOT EXISTS ${tableName}(${columns.toString()});`
-        return await self.sqlite?.executeSql(query)
+        return await this.sqlite?.executeSql(query)
     }
 
-    async select(tableName: String): Promise<Database> {
+    select(tableName: String){
         const self = Database.getInstance()
         this.selectStatement = `SELECT * FROM ${tableName}`
-        return self
+        return this
     }
 
-    async where(condition: String): Promise<Database>{
+    where(condition: String){
         const self = Database.getInstance() 
-        self.selectStatement = `${self.selectStatement} WHERE ${condition}`
-        return self
+        this.selectStatement = `${this.selectStatement} WHERE ${condition}`
+        return this
     }
 
-    async limit(limit: number): Promise<Database>{
+    limit(limit: number){
         const self = Database.getInstance() 
-        self.selectStatement = `${self.selectStatement} LIMIT ${limit}`
-        return self
+        this.selectStatement = `${this.selectStatement} LIMIT ${limit}`
+        return this
     }
 
-    async ascending(): Promise<Database>{
+    ascending(){
         const self = Database.getInstance() 
-        self.selectStatement = `${self.selectStatement} ASC`
-        return self
+        this.selectStatement = `${this.selectStatement} ASC`
+        return this
     }
 
-    async descending(): Promise<Database>{
+    descending(){
         const self = Database.getInstance() 
-        self.selectStatement = `${self.selectStatement} DESC`
+        this.selectStatement = `${this.selectStatement} DESC`
+        return this
+    }
+
+    insert(tableName: String){
+        const self = Database.getInstance() 
+        self.insertStatement = `INSERT INTO ${tableName}`
         return self
     }
 
     async get(): Promise<ResultSet[]>{
         const self = Database.getInstance()
         self.selectStatement = `${self.selectStatement};`
-        return await self.sqlite.executeSql(self.selectStatement)
+        
+        return self.sqlite.executeSql(self.selectStatement)
     }
 
-    async insert(tableName: String): Promise<Database>{
-        const self = Database.getInstance() 
-        self.insertStatement = `INSERT INTO ${tableName}`
-        return self
-    }
 
     async add(columns: Object): Promise<ResultSet[]>{
         const self = Database.getInstance()
-        self.insertStatement = `${this.insertStatement}(${Object.keys(columns).toString()}) VALUES(${Object.values(columns).toString()})`
-        return await self.sqlite.executeSql(self.insertStatement)
+        this.insertStatement = `${this.insertStatement}(${Object.keys(columns).toString()}) VALUES(${Object.values(columns).toString()})`
+
+        return this.sqlite.executeSql(this.insertStatement)
     }
 
 }
