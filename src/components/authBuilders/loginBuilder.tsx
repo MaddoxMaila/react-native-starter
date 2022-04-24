@@ -6,6 +6,9 @@ import {AuthContext} from '../../contexts/Authentication'
 
 interface LoginBuilderProps {}
 
+
+
+
 const LoginBuilder : React.FC<LoginBuilderProps> = () => {
 
     const {authUser, Account} = useContext(AuthContext)
@@ -50,8 +53,9 @@ const LoginBuilder : React.FC<LoginBuilderProps> = () => {
                             Left={
                                 <AppButton press={() => {
 
-                                    authUser({username : email});
-                                    if(Account) alert('Hello World')
+                                    // authUser({username : email});
+                                    // if(Account) alert('Hello World')
+                                    alert("login pressed")
 
                                 }} 
                                 title="Login"
